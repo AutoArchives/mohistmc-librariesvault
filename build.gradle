@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.mohistmc'
-version = '1.20.1'
+version = '1.20.2'
 
 repositories {
     mavenCentral()
@@ -18,7 +18,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 dependencies {
-    implementation 'org.yaml:snakeyaml:2.0' // 1.20.1+
+    implementation 'org.yaml:snakeyaml:2.2' // 1.20.2+
+    // implementation 'org.yaml:snakeyaml:2.0' // 1.20.1+
     // implementation 'org.yaml:snakeyaml:1.30'  // 1.18.2
     // implementation 'org.yaml:snakeyaml:1.33'  // 1.19.2-1.19.4
     implementation 'javax.inject:javax.inject:1'
@@ -27,7 +28,7 @@ dependencies {
 shadowJar {
     archiveClassifier = null
     dependencies {
-        include(dependency('org.yaml:snakeyaml:2.0'))
+        include(dependency('org.yaml:snakeyaml:2.2'))
         include(dependency('javax.inject:javax.inject:1'))
     }
     relocate("org.yaml.snakeyaml", "com.mohistmc.org.yaml.snakeyaml")
