@@ -5,14 +5,17 @@ plugins {
 }
 
 group = 'com.mohistmc'
-version = '1.20.2'
+version = '1.20.5'
 
 repositories {
     mavenCentral()
     maven { url 'https://maven.mohistmc.com/' }
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
