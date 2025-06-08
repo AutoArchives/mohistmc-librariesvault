@@ -1,14 +1,15 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'io.github.goooler.shadow' version '8.1.8'
 }
 
 group = 'com.mohistmc'
-version = '1.20.5'
+version = '1.21.1'
 
 repositories {
     mavenCentral()
+    maven { url = "https://repo.papermc.io/repository/maven-public/" }
     maven { url 'https://maven.mohistmc.com/' }
 }
 
@@ -21,21 +22,56 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 dependencies {
+    //implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'org.yaml:snakeyaml:2.2' // 1.20.2+
     // implementation 'org.yaml:snakeyaml:2.0' // 1.20.1+
     // implementation 'org.yaml:snakeyaml:1.30'  // 1.18.2
     // implementation 'org.yaml:snakeyaml:1.33'  // 1.19.2-1.19.4
     implementation 'javax.inject:javax.inject:1'
+    implementation "org.spongepowered:configurate-yaml:4.2.0-SNAPSHOT"
+    implementation "net.kyori:option:1.0.0"
+    implementation("net.kyori:adventure-api:4.17.0")
+    implementation("net.kyori:adventure-key:4.17.0")
+    implementation("net.kyori:adventure-text-logger-slf4j:4.17.0")
+    implementation("net.kyori:adventure-text-serializer-ansi:4.17.0")
+    implementation("net.kyori:adventure-text-minimessage:4.17.0")
+    implementation("net.kyori:adventure-text-serializer-gson:4.17.0")
+    implementation("net.kyori:adventure-text-serializer-json:4.17.0")
+    implementation("net.kyori:adventure-text-serializer-legacy:4.17.0")
+    implementation("net.kyori:adventure-text-serializer-plain:4.17.0")
+    implementation("net.kyori:ansi:1.0.3")
+    implementation("net.kyori:examination-api:1.3.0")
+    implementation("net.kyori:examination-string:1.3.0")
 }
 
 shadowJar {
     archiveClassifier = null
     dependencies {
-        include(dependency('org.yaml:snakeyaml:2.2'))
-        include(dependency('javax.inject:javax.inject:1'))
+        include(dependency('org.yaml:snakeyaml'))
+        include(dependency('javax.inject:javax.inject'))
+        include(dependency('org.spongepowered:configurate-yaml'))
+        include(dependency('org.spongepowered:configurate-core'))
+        include(dependency('io.leangen.geantyref:geantyref'))
+        include(dependency('net.kyori:option'))
+        include(dependency('net.kyori:adventure-api'))
+        include(dependency('net.kyori:adventure-key'))
+        include(dependency('net.kyori:adventure-text-logger-slf4j'))
+        include(dependency('net.kyori:adventure-text-minimessage'))
+        include(dependency('net.kyori:adventure-text-serializer-ansi'))
+        include(dependency('net.kyori:adventure-text-serializer-gson'))
+        include(dependency('net.kyori:adventure-text-serializer-json'))
+        include(dependency('net.kyori:adventure-text-serializer-legacy'))
+        include(dependency('net.kyori:adventure-text-serializer-plain'))
+        include(dependency('net.kyori:ansi'))
+        include(dependency('net.kyori:examination-api'))
+        include(dependency('net.kyori:examination-string'))
     }
     relocate("org.yaml.snakeyaml", "com.mohistmc.org.yaml.snakeyaml")
     relocate("javax.inject", "com.mohistmc.javax.inject")
+    relocate("org.spongepowered.configurate", "com.mohistmc.org.spongepowered.configurate")
+    relocate("io.leangen.geantyref", "com.mohistmc.io.leangen.geantyref")
+    relocate("net.kyori", "com.mohistmc.net.kyori")
+    exclude("META-INF/services/")
 }
 
 shadowJar.dependsOn(jar)
@@ -54,8 +90,7 @@ publishing {
         mavenLocal()
 
         maven {
-            name = "Mohist-Maven"
-            setUrl("file:/Mohist-Maven/maven/")
+            url = layout.buildDirectory.dir('repo')
         }
     }
 }
