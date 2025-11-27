@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.mohistmc'
-version = '1.21.1-1'
+version = '1.21.1-2'
 
 repositories {
     mavenCentral()
@@ -43,6 +43,8 @@ dependencies {
     implementation 'org.apache.maven.resolver:maven-resolver-util:1.9.18'
 
     implementation 'org.apache.commons:commons-math3:3.6.1'
+
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
 }
 
 shadowJar {
@@ -91,6 +93,7 @@ shadowJar {
         include(dependency('org.apache.httpcomponents:httpcore:4.4.16'))
         include(dependency('org.apache.httpcomponents:httpclient:4.5.14'))
         include(dependency('org.apache.commons:commons-math3'))
+        include(dependency('org.mariadb.jdbc:mariadb-java-client'))
     }
     relocate("org.yaml.snakeyaml", "com.mohistmc.org.yaml.snakeyaml")
     relocate("javax.inject", "com.mohistmc.javax.inject")
